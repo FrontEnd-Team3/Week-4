@@ -91,7 +91,9 @@ updateUser(3, "age", 25);
   위의 모든 상황이 적용된 결과를을 콘솔창에 띄울 것
   단 위의 수정 내용은 모두 적용된 상태여야 한다.
 */
-console.log(users);
+for (let user of users) {
+  console.log(user);
+}
 
 /*
 문제5. 조회한 유저를 height별 오름 차순으로 정렬하여 조회하기
