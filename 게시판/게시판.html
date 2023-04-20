@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FLEX_2</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            
+            :root {
+                --main-bg-color: rgb(252, 211, 217);
+              }
+
+            /*모든 요소에 개별 적용할 필요 없이 쓰고싶을 때마다 class에 추가만 해주면 됨*/
+            header {
+                padding-top: 2%;
+                background-color: var(--main-bg-color);
+                text-align: center;
+                font-size: 40px;
+                font-weight: bold;
+            }
+
+            header > p{
+                margin-top: 1%;
+                font-size: 16px;
+            }
+
+            main{
+                position: absolute;
+                height: 100%;
+                background-color: var(--main-bg-color);
+                display: flex;
+                width: 100%;
+                justify-content: center;
+            }
+            #tree{
+                position: relative;
+                top: 11%;
+                right: 20%;
+                height: 350px;
+            }
+
+            #rabbit{
+                position: relative;
+                height: 250px;
+                top: 26%;
+                left: 13%;
+                z-index: 1;
+            }
+
+            .flex_center {
+                width: 500px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                position: absolute;
+                z-index: 2;
+            }
+
+            div {
+                top: 5.5%;
+                height: 23rem;
+                background-color: #e7e7e7;
+            }
+
+            .contents{
+                height: 200px;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            
+            input{
+                width: 300px;
+                height: 50px;
+                border-style: none;
+                border-radius: 5px;
+            }
+            
+            a{
+                color: #797575;
+                text-decoration-line: #797575;
+            }
+            button{
+                padding: 20px 40px;
+                font-size: 20px;
+                font-weight: bold;
+                border-style: none;
+                border-radius: 24px;
+            }
+
+            button:hover{
+                background-color: rgb(232, 159, 159);
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 20%;
+                background-color: #797575;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h4>Welcome to our page!</h4>
+            <p>You can get access to your posts.</p>
+        </header>
+        <main>
+            <img id="tree" src="https://images.vexels.com/media/users/3/158004/isolated/preview/d0d467c0c649386636cd4505f265d107-icone-de-arvore-frutifera.png"/>
+            <div class="flex_center">
+                <form class="contents">
+                    <p><input placeholder="Id" id="id"></p>
+                    <p><input placeholder="Password" id="pw" type="password"/></p>
+                    <p><button type="submit">Sign Up</button></p>
+                </form>
+                <p>
+                    <p>로그인에 문제가 있나요??</p>
+                    <p>
+                        <a href="#">회원가입하기</a>
+                        <a href="#">아이디찾기</a>
+                        <a href="#">비밀번호찾기</a>
+                    </p>
+                </p>
+            </div>
+            <img id="rabbit" src="https://i.pinimg.com/originals/3a/eb/bf/3aebbf008b4b3be79ec954bb707a5e12.png"/>
+        </main>
+        <footer>
+        </footer>
+        <script>
+            function delay(ms){
+                return new Promise((resolve) => setTimeout(resolve, ms))
+            }
+
+            const $inputId = document.querySelector("#id")
+            const $inputPw = document.querySelector('#pw')
+            
+            const $form = document.querySelector('form')
+            $form.addEventListener("submit", function(e){
+                e.preventDefault();
+
+                const $id = $inputId.value
+                const $pw = $inputPw.value
+
+                console.log($id)
+                console.log($pw)
+
+                async function login(id, pw){
+                    if((id === 'aa11' && pw === 'a1a1') || (id === 'bb22' && pw === 'b2b2')){
+                        await delay(1000);
+                        location.href = "./main.html";
+                    }else{
+                        alert('Not Found!')
+                    }
+                }
+
+                login($id, $pw);
+            })
+
+        </script>
+    </body>
+</html>

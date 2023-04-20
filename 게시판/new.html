@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: rgb(250, 229, 232);
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      p {
+        margin: 2%;
+        border: solid 1px #000;
+        text-align: center;
+        padding: 1%;
+      }
+
+      button {
+        border-style: none;
+        background-color: gainsboro;
+        padding: 10px;
+        border-radius: 6px;
+        margin-top: 1%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="contents"><h1>contents</h1></div>
+
+    <script>
+      const BACKEND_URL = "https://jsonplaceholder.typicode.com/posts";
+
+      const ErrorHandling = async (message, status) => {
+        switch (status) {
+          case 404:
+            alert("ERROR!!");
+            location.href = "./error.html";
+        }
+      };
+
+      const renderPosts = async () => {
+        try {
+          const result = await axios.get(BACKEND_URL);
+          console.log(result);
+          const topTen = result.data.slice(0, 10);
+          console.log(topTen);
+          const $contentArea = document.querySelector("#contents");
+
+          for (let content of topTen) {
+            console.log(`${content.title}, ${content.body}`);
+            const newContent = document.createElement("div");
+            newContent.innerHTML = `<p>title: ${content.title} <br> content: ${content.body} <br> <button>댓글 확인</button></p>`;
+
+            $contentArea.append(newContent);
+
+            const $goBtn = document.querySelectorAll("button");
+            console.log($goBtn);
+
+            const $searchParams = new URLSearchParams(location.search);
+            console.log($searchParams);
+            const $postId = $searchParams.get("postId");
+            console.log($postId);
+
+            $goBtn.forEach((btn) => {
+              btn.addEventListener("click", function () {
+                location.href = `https://jsonplaceholder.typicode.com/comments/${$postId}`;
+              });
+            });
+          }
+        } catch (err) {
+          console.log(err);
+          ErrorHandling(err.message, err.response.status);
+        }
+      };
+
+      renderPosts();
+    </script>
+  </body>
+</html>
