@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .hidden {
+        display: none;
+      }
+      .pagination {
+        display: flex;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
+      }
+      .pagination > li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+      .pagination > li:hover {
+        cursor: pointer;
+      }
+      .pagination > li.selected {
+        background-color: red;
+      }
+    </style>
+    <script defer type="module" src="./q2.js"></script>
+    <title>Q2</title>
+  </head>
+  <body>
+    <div id="post-list">
+      <div id="post-container"></div>
+      <div id="add-posts-section">
+        <button type="button">게시글 추가하기</button>
+        <button type="button" class="hidden">취소</button>
+        <input type="text" placeholder="제목" class="hidden" />
+        <input type="text" placeholder="내용" class="hidden" />
+      </div>
+    </div>
+    <ul class="pagination"></ul>
+  </body>
+</html>
