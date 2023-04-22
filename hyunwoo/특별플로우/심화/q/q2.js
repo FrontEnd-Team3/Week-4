@@ -44,7 +44,7 @@ const setPagination = () => {
     const gt = `<li>&gt;</li>
     <li>&gt;&gt;</li>`;
     const between = Array.from({ length: 10 }, (_, i) => {
-      const pageNum = postsPerPage * Math.floor(page / 10) + i + 1;
+      const pageNum = postsPerPage * Math.floor((page - 1) / 10) + i + 1;
       return `<li ${
         pageNum === page ? "class='selected'" : ""
       }>${pageNum}</li>`;
@@ -64,8 +64,8 @@ const setPosts = () => {
   $postContainer.innerHTML = Array.from(
     { length: postsPerPage },
     (_, i) => `<div class="post-card" data-toggle="false">
-  <h4 class="post-title">${dividedPosts[page][i].title}</h4>
-  <div class="post-content">${dividedPosts[page][i].content}</div>
+  <h4 class="post-title">${dividedPosts[page - 1][i].title}</h4>
+  <div class="post-content">${dividedPosts[page - 1][i].content}</div>
   <button type="button">댓글 보기</button>
   <div class="reply-section hidden">
     <button type="button">댓글 추가하기</button>
@@ -270,6 +270,7 @@ $addPostsSection.children[1].addEventListener("click", () => {
   $addPostsSection.children[3].value = null;
 });
 setPosts();
+setPagination();
 
 /* 
 -----------------------------------------------------------------------------------------
