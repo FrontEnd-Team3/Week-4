@@ -13,27 +13,19 @@ const $repliesList = document.querySelector('#replies-list');
     삭제 및 수정기능은 본인의 자유로 구현하시면 됩니다 :)
 */
 
-// 게시글 제목
-const $postTitle = document.createElement('h2');
-$postTitle.textContent = mockPost.post.title;
-$postDetail.appendChild($postTitle);
-// 게시글 내용
-const $postCont = document.createElement('p');
-$postCont.textContent = mockPost.post.content;
-$postDetail.appendChild($postCont);
-// 작성자
-const $postUser = document.createElement('p');
-$postUser.textContent = mockPost.post.User.nickName;
-$postDetail.appendChild($postUser);
+$postDetail.innerHTML = `
+<h3>제목 : ${mockPost.post.title}</h3>
+<div>내용 : ${mockPost.post.content}</div>
+<p>작성자 : ${mockPost.post.User.nickName}</p>
+`;
 
-console.log(Object.entries(mockPost.post.Replies))
 // 댓글 목록
 const $replies = document.querySelector('#replies-list');
 const replyAll = Object.values(mockPost.post.Replies)
-console.log(replyAll)
+
 for(let reply in replyAll){
     const $repList = document.createElement('li');
-    $repList.textContent = replyAll[reply].content;
+    $repList.textContent = `${replyAll[reply].User.nickName} : ${replyAll[reply].content}`;
     // console.log(reply)
     // console.log(replyAll)
     console.log(replyAll[reply])
@@ -44,15 +36,22 @@ for(let reply in replyAll){
 const $inputTxt = document.querySelector('input');
 const $btn = document.querySelector('button');
 function replyAdd(){
+    const $btnDel = document.createElement('button');
     const $repList2 = document.createElement('li');
     if($inputTxt.value !== ''){
-        $repList2.textContent = $inputTxt.value;
-        $replies.appendChild($repList2);
+        $repList2.textContent = `latte : ${$inputTxt.value}`;   // 작성자 라떼 + 댓글 내용
+        $btnDel.textContent = '삭제'
+        $replies.appendChild($repList2).appendChild($btnDel);
         $inputTxt.value = ''
     }
+    $btnDel.addEventListener('click', (e)=> {
+        e.preventDefault();
+        e.target.parentElement.remove()
+        replyAdd();
+    })
 }
 
-$inputTxt.addEventListener('keydown', function(e){
+$inputTxt.addEventListener('keydown', function(e){ // 엔터키
     if(e.keyCode === 13) {
         e.preventDefault();
         replyAdd();
@@ -63,3 +62,4 @@ $btn.addEventListener('click', (e)=>{
     e.preventDefault();
     replyAdd();
 })
+
